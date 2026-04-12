@@ -1,0 +1,14 @@
+[zopfli]
+language = "c"
+compile_commands_path = "database/zopfli/latest/build_asan/compile_commands.json"
+header_paths = ["database/zopfli/latest/code/src/zopfli/zopfli.h", "database/zopfli/latest/code/src/zopfli/deflate.h"]
+document_paths = ["database/zopfli/latest/code/src/zopfli/zopfli.h"]
+document_has_api_usage = false
+output_path = "database/zopfli/latest/out"
+driver_build_args = ["database/zopfli/latest/build_asan/libzopfli.a", "-Idatabase/zopfli/latest/code", "-Idatabase/zopfli/latest/code/src/zopfli"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

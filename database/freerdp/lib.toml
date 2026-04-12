@@ -1,0 +1,14 @@
+[freerdp]
+language = "c"
+compile_commands_path = "database/freerdp/latest/build_asan/compile_commands.json"
+header_paths = ["database/freerdp/latest/code/include/freerdp/codec/xcrush.h", "database/freerdp/latest/code/include/freerdp/freerdp.h"]
+document_paths = ["database/freerdp/latest/code/include/freerdp/codec/xcrush.h"]
+document_has_api_usage = false
+output_path = "database/freerdp/latest/out"
+driver_build_args = ["database/freerdp/latest/build_asan/libfreerdp/libfreerdp3.a", "database/freerdp/latest/build_asan/winpr/libwinpr/libwinpr3.a", "-Idatabase/freerdp/latest/code/include", "-Idatabase/freerdp/latest/build_asan/include", "-Idatabase/freerdp/latest/code/winpr/include", "-Idatabase/freerdp/latest/build_asan/winpr/include", "-lssl", "-lcrypto", "-lpthread", "-lz"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

@@ -1,0 +1,14 @@
+[libxslt]
+language = "c"
+compile_commands_path = "database/libxslt/latest/build_asan/compile_commands.json"
+header_paths = ["database/libxslt/latest/code/libxslt/xslt.h", "database/libxslt/latest/code/libxslt/transform.h"]
+document_paths = ["database/libxslt/latest/code/libxslt/xslt.h"]
+document_has_api_usage = false
+output_path = "database/libxslt/latest/out"
+driver_build_args = ["database/libxslt/latest/code/libxslt/.libs/libxslt.a", "database/libxslt/latest/code/libexslt/.libs/libexslt.a", "-Idatabase/libxslt/latest/code", "-lxml2", "-lz", "-lm"]
+consumer_case_paths = ["database/libxslt/latest/code/tests/fuzz"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

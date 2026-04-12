@@ -52,7 +52,8 @@ def setup_logger(debug: bool):
         colorize=True,
     )
     Path("logs").mkdir(exist_ok=True)
-    log_filename = f"logs/{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}_{"_".join(sys.argv).replace(' ', '_').replace('/', '_')}.log"
+    argv_str = "_".join(sys.argv).replace(' ', '_').replace('/', '_')
+    log_filename = f"logs/{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}_{argv_str}.log"
     if len(log_filename) > 255:
         log_filename = log_filename[:200] + ".log"
     logger.add(

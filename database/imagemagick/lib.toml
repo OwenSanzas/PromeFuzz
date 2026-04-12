@@ -1,0 +1,14 @@
+[imagemagick]
+language = "c++"
+compile_commands_path = "database/imagemagick/latest/build_asan/compile_commands.json"
+header_paths = ["database/imagemagick/latest/code/Magick++/lib/Magick++/Image.h"]
+document_paths = ["database/imagemagick/latest/code/Magick++/lib/Magick++/Image.h"]
+document_has_api_usage = false
+output_path = "database/imagemagick/latest/out"
+driver_build_args = ["database/imagemagick/latest/code/MagickCore/.libs/libMagickCore-7.Q16HDRI.a", "database/imagemagick/latest/code/MagickWand/.libs/libMagickWand-7.Q16HDRI.a", "database/imagemagick/latest/code/Magick++/lib/.libs/libMagick++-7.Q16HDRI.a", "-Idatabase/imagemagick/latest/code", "-Idatabase/imagemagick/latest/code/Magick++/lib", "-lz", "-lm", "-lpthread", "-ldl", "-std=c++17"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

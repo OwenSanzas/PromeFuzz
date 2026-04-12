@@ -1,0 +1,14 @@
+[openexr]
+language = "c++"
+compile_commands_path = "database/openexr/latest/build_asan/compile_commands.json"
+header_paths = ["database/openexr/latest/bin_asan/include/OpenEXR/ImfCheckFile.h", "database/openexr/latest/bin_asan/include/OpenEXR"]
+document_paths = ["database/openexr/latest/bin_asan/include/OpenEXR/ImfCheckFile.h"]
+document_has_api_usage = false
+output_path = "database/openexr/latest/out"
+driver_build_args = ["database/openexr/latest/build_asan/src/lib/OpenEXRUtil/libOpenEXRUtil-4_0_d.a", "database/openexr/latest/build_asan/src/lib/OpenEXR/libOpenEXR-4_0_d.a", "database/openexr/latest/build_asan/src/lib/OpenEXRCore/libOpenEXRCore-4_0_d.a", "database/openexr/latest/build_asan/src/lib/IlmThread/libIlmThread-4_0_d.a", "database/openexr/latest/build_asan/src/lib/Iex/libIex-4_0_d.a", "database/openexr/latest/build_asan/_deps/imath-build/src/Imath/libImath-3_2_d.a", "-Idatabase/openexr/latest/bin_asan/include", "-Idatabase/openexr/latest/bin_asan/include/OpenEXR", "-Idatabase/openexr/latest/bin_asan/include/Imath", "-lz", "-std=c++17", "-lpthread"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

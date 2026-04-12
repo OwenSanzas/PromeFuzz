@@ -35,4 +35,4 @@ libraries.toml
 library/
 /*.json
 /test*
-report-*.md
+report-*.md.env

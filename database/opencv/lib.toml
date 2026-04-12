@@ -1,0 +1,14 @@
+[opencv]
+language = "c++"
+compile_commands_path = "database/opencv/latest/build_asan/compile_commands.json"
+header_paths = ["database/opencv/latest/code/modules/imgcodecs/include/opencv2/imgcodecs.hpp"]
+document_paths = ["database/opencv/latest/code/modules/imgcodecs/include/opencv2/imgcodecs.hpp"]
+document_has_api_usage = false
+output_path = "database/opencv/latest/out"
+driver_build_args = ["database/opencv/latest/build_asan/lib/libopencv_imgcodecs.a", "database/opencv/latest/build_asan/lib/libopencv_imgproc.a", "database/opencv/latest/build_asan/lib/libopencv_core.a", "database/opencv/latest/build_asan/3rdparty/lib/liblibjpeg-turbo.a", "database/opencv/latest/build_asan/3rdparty/lib/liblibpng.a", "database/opencv/latest/build_asan/3rdparty/lib/libzlib.a", "database/opencv/latest/build_asan/3rdparty/lib/liblibtiff.a", "database/opencv/latest/build_asan/3rdparty/lib/liblibwebp.a", "database/opencv/latest/build_asan/3rdparty/lib/libittnotify.a", "-Idatabase/opencv/latest/code/modules/imgcodecs/include", "-Idatabase/opencv/latest/code/modules/core/include", "-Idatabase/opencv/latest/code/modules/imgproc/include", "-Idatabase/opencv/latest/build_asan", "-std=c++17", "-lpthread", "-lz", "-ldl"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

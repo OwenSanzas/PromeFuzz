@@ -18,7 +18,7 @@ document_has_api_usage = true
 output_path = "database/libpcap/latest/out"
 
 
-driver_build_args = ["database/libpcap/latest/build_asan/libpcap.a", "-Idatabase/libpcap/latest/code", "-ldbus-1"]
+driver_build_args = ["database/libpcap/latest/build_asan/libpcap.a", "-Idatabase/libpcap/latest/code"]
 
 
 consumer_case_paths = ["database/libpcap/latest/code/testprogs"]

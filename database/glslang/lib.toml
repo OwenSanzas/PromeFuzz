@@ -1,0 +1,14 @@
+[glslang]
+language = "c++"
+compile_commands_path = "database/glslang/latest/build_asan/compile_commands.json"
+header_paths = ["database/glslang/latest/code/glslang/Include/ShHandle.h", "database/glslang/latest/code/glslang/Public/ShaderLang.h"]
+document_paths = ["database/glslang/latest/code/glslang/Public/ShaderLang.h"]
+document_has_api_usage = false
+output_path = "database/glslang/latest/out"
+driver_build_args = ["database/glslang/latest/build_asan/glslang/libglslang.a", "database/glslang/latest/build_asan/glslang/libMachineIndependent.a", "database/glslang/latest/build_asan/glslang/libGenericCodeGen.a", "database/glslang/latest/build_asan/glslang/OSDependent/Unix/libOSDependent.a", "database/glslang/latest/build_asan/SPIRV/libSPIRV.a", "-Idatabase/glslang/latest/code", "-Idatabase/glslang/latest/code/glslang/Include", "-Idatabase/glslang/latest/build_asan/include", "-DENABLE_HLSL", "-DENABLE_OPT=0", "-DGLSLANG_OSINCLUDE_UNIX", "-std=c++17"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

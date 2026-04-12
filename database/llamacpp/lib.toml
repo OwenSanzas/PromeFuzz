@@ -1,0 +1,14 @@
+[llamacpp]
+language = "c++"
+compile_commands_path = "database/llamacpp/latest/build_asan/compile_commands.json"
+header_paths = ["database/llamacpp/latest/code/include/llama.h", "database/llamacpp/latest/code/common/json-schema-to-grammar.h"]
+document_paths = ["database/llamacpp/latest/code/include/llama.h"]
+document_has_api_usage = false
+output_path = "database/llamacpp/latest/out"
+driver_build_args = ["database/llamacpp/latest/build_asan/src/libllama.a", "database/llamacpp/latest/build_asan/ggml/src/libggml.a", "database/llamacpp/latest/build_asan/ggml/src/libggml-base.a", "database/llamacpp/latest/build_asan/ggml/src/libggml-cpu.a", "-Idatabase/llamacpp/latest/code/include", "-Idatabase/llamacpp/latest/code/common", "-Idatabase/llamacpp/latest/code/ggml/include", "-std=c++17", "-lpthread", "-lm", "-ldl"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

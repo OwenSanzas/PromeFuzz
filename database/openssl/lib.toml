@@ -1,0 +1,14 @@
+[openssl]
+language = "c"
+compile_commands_path = "database/openssl/latest/build_asan/compile_commands.json"
+header_paths = ["database/openssl/latest/code/include/openssl/ssl.h", "database/openssl/latest/code/include/openssl/evp.h", "database/openssl/latest/code/include/openssl/x509.h"]
+document_paths = ["database/openssl/latest/code/include/openssl/ssl.h"]
+document_has_api_usage = false
+output_path = "database/openssl/latest/out"
+driver_build_args = ["database/openssl/latest/build_asan/libssl.a", "database/openssl/latest/build_asan/libcrypto.a", "-Idatabase/openssl/latest/code/include", "-lpthread", "-ldl"]
+consumer_case_paths = ["database/openssl/latest/code/fuzz"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

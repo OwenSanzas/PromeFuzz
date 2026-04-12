@@ -1,0 +1,14 @@
+[libplist]
+language = "c"
+compile_commands_path = "database/libplist/latest/build_asan/compile_commands.json"
+header_paths = ["database/libplist/latest/code/include/plist/plist.h"]
+document_paths = ["database/libplist/latest/code/include/plist/plist.h"]
+document_has_api_usage = false
+output_path = "database/libplist/latest/out"
+driver_build_args = ["database/libplist/latest/code/src/.libs/libplist-2.0.a", "-Idatabase/libplist/latest/code/include"]
+consumer_case_paths = ["database/libplist/latest/code/fuzz"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

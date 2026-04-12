@@ -1,0 +1,14 @@
+[quickjs]
+language = "c"
+compile_commands_path = "database/quickjs/latest/build_asan/compile_commands.json"
+header_paths = ["database/quickjs/latest/code/quickjs.h"]
+document_paths = ["database/quickjs/latest/code/quickjs.h"]
+document_has_api_usage = false
+output_path = "database/quickjs/latest/out"
+driver_build_args = ["database/quickjs/latest/build_asan/libquickjs.a", "-Idatabase/quickjs/latest/code", "-lm", "-ldl", "-lpthread"]
+consumer_case_paths = ["database/quickjs/latest/code/fuzz", "database/quickjs/latest/code/tests"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

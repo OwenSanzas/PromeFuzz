@@ -1,0 +1,14 @@
+[wabt]
+language = "c++"
+compile_commands_path = "database/wabt/latest/build_asan/compile_commands.json"
+header_paths = ["database/wabt/latest/code/include/wabt/binary-reader-ir.h", "database/wabt/latest/code/include/wabt/binary-reader.h"]
+document_paths = ["database/wabt/latest/code/include/wabt/binary-reader-ir.h"]
+document_has_api_usage = false
+output_path = "database/wabt/latest/out"
+driver_build_args = ["database/wabt/latest/build_asan/libwabt.a", "-Idatabase/wabt/latest/code/include", "-Idatabase/wabt/latest/build_asan/include", "-Idatabase/wabt/latest/build_asan", "-Idatabase/wabt/latest/code", "-std=c++17"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

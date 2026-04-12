@@ -1,0 +1,14 @@
+[draco]
+language = "c++"
+compile_commands_path = "database/draco/latest/build_asan/compile_commands.json"
+header_paths = ["database/draco/latest/code/src/draco/compression/decode.h", "database/draco/latest/code/src/draco/core/decoder_buffer.h"]
+document_paths = ["database/draco/latest/code/src/draco/compression/decode.h"]
+document_has_api_usage = false
+output_path = "database/draco/latest/out"
+driver_build_args = ["database/draco/latest/build_asan/libdraco.a", "-Idatabase/draco/latest/code/src", "-Idatabase/draco/latest/build_asan", "-Idatabase/draco/latest/code", "-std=c++17"]
+consumer_case_paths = ["database/draco/latest/code/src/draco/tools/fuzz"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

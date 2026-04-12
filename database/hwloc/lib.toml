@@ -1,0 +1,14 @@
+[hwloc]
+language = "c"
+compile_commands_path = "database/hwloc/latest/build_asan/compile_commands.json"
+header_paths = ["database/hwloc/latest/code/include/hwloc.h", "database/hwloc/latest/code/include/private/misc.h"]
+document_paths = ["database/hwloc/latest/code/include/hwloc.h"]
+document_has_api_usage = false
+output_path = "database/hwloc/latest/out"
+driver_build_args = ["database/hwloc/latest/build_asan/libhwloc.a", "-Idatabase/hwloc/latest/code/include", "-lpthread"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""
