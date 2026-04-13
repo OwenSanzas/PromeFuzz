@@ -2,7 +2,7 @@
 """Create database configs for all 30 benchmark projects."""
 import os, shutil, textwrap
 
-PF = "/home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz"
+PF = os.environ.get("PROMEFUZZ_DIR") or os.path.dirname(os.path.abspath(__file__))
 DB = os.path.join(PF, "database")
 
 # Project configs: (name, repo_url, language, build_system, special_notes)

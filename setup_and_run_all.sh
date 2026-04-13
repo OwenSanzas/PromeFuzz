@@ -1,16 +1,39 @@
 #!/bin/bash
-# Master script: Setup database configs, run PromeFuzz, fuzz & collect coverage
-# for all 80 remaining benchmark cases across 30 projects.
+# Master script: set up database configs, run PromeFuzz, fuzz + collect coverage
+# for every case listed in $BENCHMARK_CASES.
+#
+# Usage:
+#   export BENCHMARK_CASES=/path/to/benchmark_cases.jsonl
+#   export PROMEFUZZ_EXPERIMENT_DIR=/path/to/output  (optional)
+#   export FUZZ_DURATION=600                          (optional)
+#   ./setup_and_run_all.sh
+#
+# Required environment:
+#   OPENAI_API_KEY         - for PromeFuzz LLM calls
+#   BENCHMARK_CASES        - path to benchmark_cases.jsonl
+
 set -o pipefail
 
-export PATH="/home/ze/.local/bin:$PATH"
-source /home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz/.venv/bin/activate
-export $(grep -v '^#' /home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz/.env | xargs)
+PF="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export PROMEFUZZ_DIR="$PF"
+EXPDIR="${PROMEFUZZ_EXPERIMENT_DIR:-$PF/experiment/promefuzz_600s}"
+export PROMEFUZZ_EXPERIMENT_DIR="$EXPDIR"
+GOLD="${BENCHMARK_CASES:?set BENCHMARK_CASES to your benchmark_cases jsonl path}"
+export BENCHMARK_CASES="$GOLD"
+FUZZ_DURATION="${FUZZ_DURATION:-600}"
+export FUZZ_DURATION
 
-PF="/home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz"
-EXPDIR="/home/ze/agf/experiment/promefuzz_600s"
-GOLD="/home/ze/agf/benchmark/oss_fuzz_harness/data/benchmark_cases_gold_buildable.jsonl"
+# Activate venv if present
+if [ -f "$PF/.venv/bin/activate" ]; then
+    source "$PF/.venv/bin/activate"
+fi
 
+# Load .env for API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY)
+if [ -f "$PF/.env" ]; then
+    set -a; source "$PF/.env"; set +a
+fi
+
+mkdir -p "$EXPDIR"
 log() { echo "[$(date +%H:%M:%S)] $*"; }
 
 ############################################################

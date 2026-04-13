@@ -4,8 +4,8 @@
 
 set -e
 
-PROMEFUZZ_DIR="/home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz"
-EXPERIMENT_DIR="/home/ze/agf/experiment/promefuzz_600s"
+PROMEFUZZ_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+EXPERIMENT_DIR="${PROMEFUZZ_EXPERIMENT_DIR:-$PROMEFUZZ_DIR/experiment/promefuzz_600s}"
 
 PROJECT="$1"
 FUZZER_NAME="$2"

@@ -2,10 +2,11 @@
 """Match generated PromeFuzz drivers to benchmark cases and run fuzzing."""
 import json, os, subprocess, sys, re, glob
 
-PF = "/home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz"
-EXPDIR = "/home/ze/agf/experiment/promefuzz_600s"
-GOLD = "/home/ze/agf/benchmark/oss_fuzz_harness/data/benchmark_cases_gold_buildable.jsonl"
-FUZZ_DURATION = 600
+import os
+PF = os.environ.get("PROMEFUZZ_DIR") or os.path.dirname(os.path.abspath(__file__))
+EXPDIR = os.environ.get("PROMEFUZZ_EXPERIMENT_DIR", os.path.join(PF, "experiment", "promefuzz_600s"))
+GOLD = os.environ.get("BENCHMARK_CASES") or os.path.join(PF, "benchmark_cases.jsonl")
+FUZZ_DURATION = int(os.environ.get("FUZZ_DURATION", "600"))
 
 def load_cases():
     with open(GOLD) as f:

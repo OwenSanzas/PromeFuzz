@@ -9,7 +9,7 @@ import json
 import subprocess
 import shutil
 
-PROMEFUZZ_DIR = "/home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz"
+PROMEFUZZ_DIR = os.environ.get("PROMEFUZZ_DIR") or os.path.dirname(os.path.abspath(__file__))
 
 # Project configurations
 # Each project: repo_url, build_system, language, headers, lib_files, extra_build_args, consumer_paths, extra_cmake_args

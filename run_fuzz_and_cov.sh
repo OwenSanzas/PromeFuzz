@@ -4,8 +4,8 @@
 
 set -e
 
-PROMEFUZZ_DIR="/home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz"
-EXPERIMENT_DIR="/home/ze/agf/experiment/promefuzz_600s"
+PROMEFUZZ_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+EXPERIMENT_DIR="${PROMEFUZZ_EXPERIMENT_DIR:-$PROMEFUZZ_DIR/experiment/promefuzz_600s}"
 
 PROJECT="$1"
 FUZZER_NAME="$2"
@@ -185,11 +185,15 @@ int main(int argc, char **argv) {
 COVEOF
 fi
 
+# Extract compiler flags (-I, -std, -f, -D flags) from COV_BUILD_ARGS for compilation
+COV_COMPILE_FLAGS=$(echo "$COV_BUILD_ARGS" | tr ' ' '\n' | grep -E '^(-I|-std|-f|-D)' | tr '\n' ' ')
+
 # Compile driver to object file
 $COMPILER -fprofile-instr-generate -fcoverage-mapping -g -O1 \
     $INCLUDE_ARGS \
+    $COV_COMPILE_FLAGS \
     -c "$DRIVER_SRC" \
-    -o "$OUTDIR/driver_cov.o" 2>&1 || {
+    -o "$OUTDIR/driver_cov.o" 2>"$OUTDIR/cov_compile.log" || {
     echo "Coverage compile failed for ${PROJECT}/${FUZZER_NAME}"
     echo "COV_BUILD_FAILED" > "$OUTDIR/cov_status.txt"
 }
@@ -197,6 +201,7 @@ $COMPILER -fprofile-instr-generate -fcoverage-mapping -g -O1 \
 if [ -f "$OUTDIR/driver_cov.o" ]; then
     # Compile main wrapper
     $COMPILER -fprofile-instr-generate -fcoverage-mapping -g -O1 \
+        $COV_COMPILE_FLAGS \
         -c "$COV_MAIN" \
         -o "$OUTDIR/cov_main.o" 2>&1
 
