@@ -1,5 +1,5 @@
 """
-A wrapper for the OpenAI API and Ollama API
+A wrapper for the OpenAI API, Ollama API, and Anthropic API
 """
 
 from openai import OpenAI
@@ -12,8 +12,15 @@ import tiktoken
 import time
 import atexit
 import sys
+import os
 from typing import Union
 from dataclasses import dataclass
+
+try:
+    from anthropic import Anthropic
+    _HAS_ANTHROPIC = True
+except ImportError:
+    _HAS_ANTHROPIC = False
 
 from src import vars as global_vars
 
@@ -23,6 +30,7 @@ class LLM_TYPES(Enum):
     OPENAI = "openai"
     OLLAMA_REASONING = "ollama-reasoning"
     OPENAI_REASONING = "openai-reasoning"
+    ANTHROPIC = "anthropic"
 
 
 @dataclass
@@ -476,6 +484,106 @@ class OpenAIClient(LLMClient):
                 completion.usage.prompt_tokens,
                 completion.usage.completion_tokens,
             )
+
+
+class AnthropicClient(LLMClient):
+    """
+    Anthropic (Claude) LLM client.
+
+    Uses the official `anthropic` Python SDK. Messages with role="system"
+    are collapsed into Anthropic's dedicated ``system`` parameter, and the
+    remaining user/assistant turns are forwarded verbatim to
+    ``messages.create``.
+    """
+
+    def __init__(
+        self,
+        base_url: str = "",
+        api_key: str = "",
+        model: str = "claude-sonnet-4-5",
+        temperature: float = 0.9,
+        max_tokens: int = -1,
+        timeout: int = 80,
+        retry_times: int = 3,
+    ):
+        if not _HAS_ANTHROPIC:
+            raise ImportError(
+                "The `anthropic` package is required for llm_type=\"anthropic\". "
+                "Install it with: pip install anthropic"
+            )
+        resolved_key = api_key or os.environ.get("ANTHROPIC_API_KEY", "")
+        if not resolved_key:
+            raise ValueError(
+                "Anthropic API key is neither provided nor found in the environment "
+                "(set api_key in config.toml or export ANTHROPIC_API_KEY)"
+            )
+        client_kwargs = {"api_key": resolved_key, "timeout": timeout, "max_retries": 0}
+        if base_url:
+            client_kwargs["base_url"] = base_url
+        try:
+            self.client = Anthropic(**client_kwargs)
+        except Exception as e:
+            raise ValueError("Anthropic API initialization failed") from e
+
+        self.model = model
+        self.temperature = temperature
+        # Anthropic requires a positive max_tokens; default to a generous cap
+        # if the caller left it at the "unlimited" sentinel.
+        self.max_tokens = 8192 if max_tokens == -1 else max_tokens
+        self.retry_times = retry_times
+
+        super().__init__()
+
+    @staticmethod
+    def _split_system(messages: list[dict[str, str]]) -> tuple[str, list[dict[str, str]]]:
+        """Anthropic does not accept role=system inside the messages list."""
+        system_parts = []
+        chat = []
+        for m in messages:
+            if m.get("role") == "system":
+                system_parts.append(m.get("content", ""))
+            else:
+                chat.append(m)
+        return ("\n\n".join(s for s in system_parts if s), chat)
+
+    @LLMClient.with_retry
+    @LLMClient.query_logger.with_log
+    def query_with_messages(
+        self, messages: list[dict[str, str]], return_tokens: bool = False
+    ) -> Union[str, tuple[str, int, int], None]:
+        system_prompt, chat_messages = self._split_system(messages)
+
+        # Anthropic requires at least one user message.
+        if not chat_messages:
+            chat_messages = [{"role": "user", "content": system_prompt or ""}]
+            system_prompt = ""
+
+        api_params = {
+            "model": self.model,
+            "messages": chat_messages,
+            "max_tokens": self.max_tokens,
+            "temperature": self.temperature,
+        }
+        if system_prompt:
+            api_params["system"] = system_prompt
+
+        try:
+            completion = self.client.messages.create(**api_params)
+            # Concatenate all text blocks in the response
+            response = "".join(
+                block.text for block in completion.content if getattr(block, "type", "") == "text"
+            )
+        except Exception as e:
+            logger.error(f"Anthropic API exception: {e}")
+            return None
+
+        if not return_tokens:
+            return response
+        return (
+            response,
+            completion.usage.input_tokens,
+            completion.usage.output_tokens,
+        )
 
 
 class OllamaClient(LLMClient):

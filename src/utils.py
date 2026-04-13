@@ -161,6 +161,20 @@ def setup_llm(llm_name: str) -> LLM.LLMClient:
                 raise ValueError(
                     "OpenAI API key is neither provided nor found in the environment"
                 )
+    elif llm_type == LLM.LLM_TYPES.ANTHROPIC.value:
+        selected_llm = deep_merge(
+            global_vars.config_template["llm"]["cloud_llm"],
+            selected_llm,
+        )
+        # set the Anthropic API key
+        if selected_llm.get("api_key", "") == "":
+            import os
+
+            selected_llm["api_key"] = os.getenv("ANTHROPIC_API_KEY")
+            if selected_llm["api_key"] is None:
+                raise ValueError(
+                    "Anthropic API key is neither provided nor found in the environment"
+                )
     else:
         raise ValueError(f"Unsupported LLM type: {llm_type}")
 
@@ -203,6 +217,16 @@ def setup_llm(llm_name: str) -> LLM.LLMClient:
                 selected_llm["max_tokens"],
                 selected_llm["timeout"],
                 selected_llm["retry_times"],
+            )
+        case LLM.LLM_TYPES.ANTHROPIC.value:
+            llm_client = LLM.AnthropicClient(
+                base_url=selected_llm.get("base_url", ""),
+                api_key=selected_llm["api_key"],
+                model=selected_llm["model"],
+                temperature=selected_llm["temperature"],
+                max_tokens=selected_llm["max_tokens"],
+                timeout=selected_llm["timeout"],
+                retry_times=selected_llm["retry_times"],
             )
 
     # validate the LLM client

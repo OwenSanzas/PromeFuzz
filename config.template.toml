@@ -219,6 +219,41 @@ timeout = 600
 # The maximum retry times for each query.
 retry_times = 3
 
+# ------------- Configuration for LLM: Anthropic (Claude) -------------
+
+# To use Anthropic Claude for generation/comprehension/analysis, set
+# `default_llm = "claude_llm"` above (or point a specific section's
+# *_llm to "claude_llm"), then fill in the block below. Requires
+# `anthropic` in requirements.txt and an ANTHROPIC_API_KEY in the
+# environment.
+
+[llm.claude_llm]
+
+# The llm type. For Anthropic Claude, use "anthropic".
+llm_type = "anthropic"
+
+# Optional custom base URL. Leave empty to use the Anthropic default.
+base_url = ""
+
+# The api key. Leave empty to use the ANTHROPIC_API_KEY environment variable.
+api_key = ""
+
+# The model used for the llm query (e.g. claude-sonnet-4-5, claude-opus-4-5).
+model = "claude-sonnet-4-5"
+
+# The temperature for the llm query. Recommend to set it lower for generating code.
+temperature = 0.5
+
+# The maximum number of tokens to sample in the response. Anthropic
+# requires a positive value; set to -1 to use this fork's default of 8192.
+max_tokens = 8192
+
+# The timeout seconds for each query.
+timeout = 80
+
+# The maximum retry times for each query.
+retry_times = 3
+
 # ------------- Configuration for LLM 3 (Embedding LLM) -------------
 
 # [MODIFY THIS] Your custom llm name.
