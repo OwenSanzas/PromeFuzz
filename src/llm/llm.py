@@ -500,7 +500,7 @@ class AnthropicClient(LLMClient):
         self,
         base_url: str = "",
         api_key: str = "",
-        model: str = "claude-sonnet-4-5",
+        model: str = "claude-sonnet-4-6",
         temperature: float = 0.9,
         max_tokens: int = -1,
         timeout: int = 80,

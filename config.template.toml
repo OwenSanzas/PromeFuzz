@@ -238,8 +238,8 @@ base_url = ""
 # The api key. Leave empty to use the ANTHROPIC_API_KEY environment variable.
 api_key = ""
 
-# The model used for the llm query (e.g. claude-sonnet-4-5, claude-opus-4-5).
-model = "claude-sonnet-4-5"
+# The model used for the llm query (e.g. claude-sonnet-4-6, claude-opus-4-6).
+model = "claude-sonnet-4-6"
 
 # The temperature for the llm query. Recommend to set it lower for generating code.
 temperature = 0.5
