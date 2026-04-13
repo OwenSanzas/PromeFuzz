@@ -152,7 +152,7 @@ analysis_llm = ""
 
 # [MODIFY THIS] The default llm used for the generation, comprehension, and analysis.
 # If the llm is not specified in the corresponding section, the default llm will be used.
-default_llm = "cloud_llm"
+default_llm = "claude_llm"
 
 # Validate the llm or not. 
 # If set to true, PromeFuzz will validate the llm availability through a "ping" query.

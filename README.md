@@ -39,9 +39,11 @@ pip install -r requirements.txt
 # 3. Build the C++ preprocessor
 bash setup.sh
 
-# 4. LLM credentials (PromeFuzz calls OpenAI GPT-4o by default)
+# 4. LLM credentials (this fork defaults to Anthropic claude-sonnet-4-6;
+#    set default_llm = "cloud_llm" in config.toml to use OpenAI GPT-4o instead)
 cp config.template.toml config.toml
-echo "OPENAI_API_KEY=sk-..." > .env
+echo "ANTHROPIC_API_KEY=sk-ant-..." > .env
+# (or: echo "OPENAI_API_KEY=sk-..." > .env  if you switch default_llm)
 ```
 
 ## Run
@@ -74,7 +76,8 @@ Environment variables:
 | `BENCHMARK_CASES` | *(required unless passed as arg)* | Path to the JSONL manifest |
 | `PROMEFUZZ_EXPERIMENT_DIR` | `./experiment/promefuzz_600s` | Where per-case results are written |
 | `FUZZ_DURATION` | `600` | libFuzzer `-max_total_time` in seconds |
-| `OPENAI_API_KEY` | *(required)* | Used by PromeFuzz LLM generate |
+| `ANTHROPIC_API_KEY` | *(required with default config)* | Claude API key for PromeFuzz LLM generate |
+| `OPENAI_API_KEY` | *(only if `default_llm = "cloud_llm"`)* | Alternative if you switch back to GPT-4o |
 
 ## Output
 
