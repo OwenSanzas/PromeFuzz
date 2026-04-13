@@ -1,150 +1,81 @@
 #!/bin/bash
-# Master script: set up database configs, run PromeFuzz, fuzz + collect coverage
-# for every case listed in $BENCHMARK_CASES.
+# End-to-end driver: for every case in $BENCHMARK_CASES,
+#   1. set up the project's PromeFuzz database (fetch + build + preprocess + generate)
+#   2. match the best generated driver to the gold target_function
+#   3. fuzz 600 s and collect llvm-cov metrics
 #
 # Usage:
 #   export BENCHMARK_CASES=/path/to/benchmark_cases.jsonl
-#   export PROMEFUZZ_EXPERIMENT_DIR=/path/to/output  (optional)
-#   export FUZZ_DURATION=600                          (optional)
+#   export PROMEFUZZ_EXPERIMENT_DIR=/path/to/output   # optional; defaults to ./experiment/promefuzz_600s
+#   export FUZZ_DURATION=600                           # optional
+#   export OPENAI_API_KEY=sk-...                       # required for PromeFuzz LLM
 #   ./setup_and_run_all.sh
 #
-# Required environment:
-#   OPENAI_API_KEY         - for PromeFuzz LLM calls
-#   BENCHMARK_CASES        - path to benchmark_cases.jsonl
+# You can also pass an explicit manifest path as the first argument:
+#   ./setup_and_run_all.sh path/to/cases.jsonl
 
 set -o pipefail
 
-PF="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export PROMEFUZZ_DIR="$PF"
-EXPDIR="${PROMEFUZZ_EXPERIMENT_DIR:-$PF/experiment/promefuzz_600s}"
-export PROMEFUZZ_EXPERIMENT_DIR="$EXPDIR"
-GOLD="${BENCHMARK_CASES:?set BENCHMARK_CASES to your benchmark_cases jsonl path}"
-export BENCHMARK_CASES="$GOLD"
-FUZZ_DURATION="${FUZZ_DURATION:-600}"
-export FUZZ_DURATION
+PROMEFUZZ_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export PROMEFUZZ_DIR
+cd "$PROMEFUZZ_DIR"
+
+# Positional arg overrides env var
+if [ -n "$1" ]; then
+    export BENCHMARK_CASES="$1"
+fi
+: "${BENCHMARK_CASES:?set BENCHMARK_CASES to your benchmark_cases jsonl path (or pass it as the first argument)}"
+
+export PROMEFUZZ_EXPERIMENT_DIR="${PROMEFUZZ_EXPERIMENT_DIR:-$PROMEFUZZ_DIR/experiment/promefuzz_600s}"
+export FUZZ_DURATION="${FUZZ_DURATION:-600}"
 
 # Activate venv if present
-if [ -f "$PF/.venv/bin/activate" ]; then
-    source "$PF/.venv/bin/activate"
+if [ -f "$PROMEFUZZ_DIR/.venv/bin/activate" ]; then
+    source "$PROMEFUZZ_DIR/.venv/bin/activate"
 fi
 
-# Load .env for API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY)
-if [ -f "$PF/.env" ]; then
-    set -a; source "$PF/.env"; set +a
+# Load .env for API keys if present
+if [ -f "$PROMEFUZZ_DIR/.env" ]; then
+    set -a; source "$PROMEFUZZ_DIR/.env"; set +a
 fi
 
-mkdir -p "$EXPDIR"
+mkdir -p "$PROMEFUZZ_EXPERIMENT_DIR"
+
 log() { echo "[$(date +%H:%M:%S)] $*"; }
 
-############################################################
-# run_project <project>
-#   1. fetch + build + preprocess + generate
-#   2. for each case, match driver, build, fuzz 600s, cov
-############################################################
-run_project() {
-    local PROJECT="$1"
-    log "START $PROJECT"
-    cd "$PF"
+log "BENCHMARK_CASES=$BENCHMARK_CASES"
+log "PROMEFUZZ_EXPERIMENT_DIR=$PROMEFUZZ_EXPERIMENT_DIR"
+log "FUZZ_DURATION=$FUZZ_DURATION s"
 
-    # Step 1: run_benchmark.sh (fetch/build/preprocess/generate)
-    if [ -d "database/$PROJECT" ]; then
-        bash run_benchmark.sh "$PROJECT" 2>&1 | tee "/tmp/pf_bench_${PROJECT}.log"
-        if [ $? -ne 0 ]; then
-            log "FAIL run_benchmark $PROJECT"
-            return 1
-        fi
-    else
-        log "SKIP $PROJECT - no database config"
-        return 1
-    fi
-
-    # Step 2: for each case in this project, find matching driver and fuzz
-    local CASES=$(python3 -c "
+# Extract unique project names from the manifest
+PROJECTS=$(python3 -c "
 import json
-with open('$GOLD') as f:
-    for l in f:
-        c = json.loads(l)
-        if c['project'] == '$PROJECT':
-            print(c['fuzzer_name'] + '|' + c.get('target_function',''))
+seen = []
+for l in open('$BENCHMARK_CASES'):
+    l = l.strip()
+    if not l: continue
+    p = json.loads(l)['project']
+    if p not in seen:
+        seen.append(p)
+for p in seen: print(p)
 ")
 
-    local DRIVER_DIR="database/$PROJECT/latest/out/fuzz_driver"
+log "Projects in manifest:"
+echo "$PROJECTS" | sed 's/^/  /'
 
-    for CASE in $CASES; do
-        local FNAME=$(echo "$CASE" | cut -d'|' -f1)
-        local TARGET_FUNC=$(echo "$CASE" | cut -d'|' -f2)
-        local OUTDIR="$EXPDIR/${PROJECT}__${FNAME}"
+# Phase 1: per-project setup (fetch/build/preprocess/generate)
+for PROJECT in $PROJECTS; do
+    log "=== SETUP $PROJECT ==="
+    if [ ! -d "database/$PROJECT" ]; then
+        log "WARN database/$PROJECT missing. Run create_all_databases.py first or add a config."
+        continue
+    fi
+    bash run_benchmark.sh "$PROJECT" 2>&1 | tee "$PROMEFUZZ_EXPERIMENT_DIR/setup_${PROJECT}.log"
+done
 
-        # Skip if already done
-        if [ -f "$OUTDIR/status.txt" ] && grep -q "FUZZ_COMPLETE" "$OUTDIR/status.txt"; then
-            log "SKIP $PROJECT/$FNAME - already done"
-            continue
-        fi
+# Phase 2: match drivers + fuzz every case in the manifest
+log "=== MATCH + FUZZ ==="
+python3 match_and_fuzz.py
 
-        log "MATCH $PROJECT/$FNAME target=$TARGET_FUNC"
-
-        # Find best matching driver
-        local BEST_DRIVER=""
-        local BEST_SCORE=0
-
-        # Search for drivers containing the target function
-        for drv in "$DRIVER_DIR"/fuzz_driver_*.c "$DRIVER_DIR"/fuzz_driver_*.cpp; do
-            [ -f "$drv" ] || continue
-            local score=$(grep -c "$TARGET_FUNC" "$drv" 2>/dev/null || echo 0)
-            if [ "$score" -gt "$BEST_SCORE" ]; then
-                BEST_SCORE=$score
-                BEST_DRIVER=$drv
-            fi
-        done
-
-        if [ -z "$BEST_DRIVER" ] || [ "$BEST_SCORE" -eq 0 ]; then
-            log "NO_MATCH $PROJECT/$FNAME - no driver calls $TARGET_FUNC"
-            mkdir -p "$OUTDIR"
-            echo "NO_MATCHING_DRIVER" > "$OUTDIR/status.txt"
-            continue
-        fi
-
-        log "FUZZ $PROJECT/$FNAME driver=$BEST_DRIVER (score=$BEST_SCORE)"
-
-        # Try to build and fuzz
-        bash run_fuzz_and_cov.sh "$PROJECT" "$FNAME" "$BEST_DRIVER" 600 2>&1 | \
-            tee "/tmp/pf_fuzz_${PROJECT}__${FNAME}.log"
-
-        # If build failed, try other drivers
-        if [ -f "$OUTDIR/status.txt" ] && grep -q "BUILD_FAILED" "$OUTDIR/status.txt"; then
-            log "BUILD_FAILED $PROJECT/$FNAME - trying other drivers"
-            for drv in "$DRIVER_DIR"/fuzz_driver_*.c "$DRIVER_DIR"/fuzz_driver_*.cpp; do
-                [ -f "$drv" ] || continue
-                [ "$drv" = "$BEST_DRIVER" ] && continue
-                local score=$(grep -c "$TARGET_FUNC" "$drv" 2>/dev/null || echo 0)
-                [ "$score" -eq 0 ] && continue
-
-                log "RETRY $PROJECT/$FNAME alt_driver=$drv"
-                rm -f "$OUTDIR/status.txt"
-                bash run_fuzz_and_cov.sh "$PROJECT" "$FNAME" "$drv" 600 2>&1 | \
-                    tee "/tmp/pf_fuzz_${PROJECT}__${FNAME}_retry.log"
-
-                if [ -f "$OUTDIR/status.txt" ] && grep -q "FUZZ_COMPLETE" "$OUTDIR/status.txt"; then
-                    break
-                fi
-            done
-        fi
-    done
-
-    log "DONE $PROJECT"
-}
-
-export -f run_project
-export PF EXPDIR GOLD
-
-# Run projects in batches
-run_batch() {
-    local pids=()
-    for proj in "$@"; do
-        run_project "$proj" &
-        pids+=($!)
-    done
-    for pid in "${pids[@]}"; do
-        wait $pid
-    done
-}
+log "=== DONE ==="
+log "Per-case results under $PROMEFUZZ_EXPERIMENT_DIR/<project>__<fuzzer_name>/"
