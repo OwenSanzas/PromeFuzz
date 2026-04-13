@@ -25,6 +25,81 @@ For more details, see our [preprinted paper](paper/ccs25-full.pdf), accepted at 
 
 > *PromeFuzz* draws its name from the Greek god Prometheus, meaning forethought.
 
+---
+
+> ## 🍴 This is a modified fork
+>
+> This repository is a fork of the original [PromeFuzz](https://doi.org/10.1145/3719027.3765222) (ACM CCS 2025).
+> It is modified to run PromeFuzz as a **per-case baseline** against an external fuzzing benchmark:
+> given a JSONL file listing `(project, fuzzer_name, target_function, ...)` tuples, the fork automatically
+>
+> 1. sets up per-project database configs (`fetch.sh` / `build.sh` / `lib.toml`) for each project,
+> 2. fetches source, builds with ASan + coverage instrumentation,
+> 3. runs upstream PromeFuzz preprocess + LLM generate,
+> 4. picks the single generated driver whose body best matches the required `target_function`,
+> 5. fuzzes it for a fixed duration (default 600 s) and collects `llvm-cov` lines / branches / functions / regions.
+>
+> ### What changed vs. upstream
+>
+> - `PromeFuzz.py`: Python 3.11 f-string compatibility fix (upstream uses 3.12-only nested f-strings).
+> - `database/<27 new projects>/`: new `fetch.sh` / `build.sh` / `lib.toml` for apache-httpd, binutils, boost, brotli, draco, fftw3, freerdp, glslang, harfbuzz, hwloc, icu, imagemagick, jq, libcoap, libgit2, libical, libjxl, libplist, libxslt, llamacpp, mbedtls, ndpi, opencv, openexr, openssh, openssl, pjsip, quickjs, strongswan, wabt, yajl-ruby, zopfli.
+> - `database/curl/`, `database/libpcap/`: switched from autotools to cmake (`bear` does not reliably capture `compile_commands.json` under autotools + ASan).
+> - New top-level scripts — do *not* replace upstream PromeFuzz, they wrap it:
+>   - `setup_and_run_all.sh` — one-command driver for a benchmark manifest.
+>   - `run_benchmark.sh` — per-project fetch / build / preprocess / generate.
+>   - `run_fuzz_and_cov.sh` — build fuzzer + coverage binary for a single driver, fuzz, replay corpus.
+>   - `match_and_fuzz.py` — read the JSONL manifest, pick the best driver per case, invoke `run_fuzz_and_cov.sh`.
+>   - `create_all_databases.py` / `setup_project.py` — bulk-create the `database/<project>/` skeletons.
+>   - `normalize_coverage.py` — post-process aggregator that recompiles Gold and PF harnesses against the same coverage library for a fair head-to-head comparison.
+> - `benchmark_cases.example.jsonl` — two example cases (`pugixml/fuzz_parse`, `zlib/compress_fuzzer`) demonstrating the manifest schema.
+> - `BENCHMARK.md` — full reproduction instructions for the paper numbers.
+>
+> The upstream LLM prompts, scheduler, sanitizer, and crash analyzer are untouched.
+>
+> ### 🚀 Quick start — run the example
+>
+> ```bash
+> git clone https://github.com/OwenSanzas/PromeFuzz
+> cd PromeFuzz
+>
+> # 1. Host prerequisites
+> sudo apt-get install -y clang llvm-dev libclang-dev cmake bear
+>
+> # 2. Python environment (requires Python 3.11+)
+> python3 -m venv .venv
+> source .venv/bin/activate
+> pip install -r requirements.txt
+>
+> # 3. Build the C++ preprocessor
+> bash setup.sh
+>
+> # 4. LLM credentials (PromeFuzz calls OpenAI GPT-4o by default)
+> cp config.template.toml config.toml
+> echo "OPENAI_API_KEY=sk-..." > .env
+>
+> # 5. Run the 2-case example (fuzzes each for 30 s)
+> FUZZ_DURATION=30 ./setup_and_run_all.sh benchmark_cases.example.jsonl
+> ```
+>
+> Each case's results land in `experiment/promefuzz_600s/<project>__<fuzzer_name>/`:
+>
+> ```
+> ├── fuzzer                # ASan + libFuzzer binary
+> ├── coverage_fuzzer       # coverage-instrumented binary
+> ├── corpus/               # libFuzzer corpus after the fuzz run
+> ├── harness.cpp           # the PromeFuzz-generated driver that was selected
+> ├── coverage_export.json  # raw llvm-cov export
+> ├── coverage_summary.txt  # Lines / Branches / Functions summary
+> ├── fuzz_log.txt
+> └── status.txt            # FUZZ_COMPLETE / BUILD_FAILED / PROMEFUZZ_FAILED / NO_MATCHING_DRIVER
+> ```
+>
+> See [`BENCHMARK.md`](BENCHMARK.md) for the full manifest schema, environment variables, and reproduction recipe.
+
+---
+
+
+
 ## ✨ Highlights
 
 - **Systematic Knowledge Integration:** PromeFuzz systematically integrates knowledge from various sources, including code metadata, documentation, and API usage patterns, to ensure both the syntactic and semantic correctness of the generated fuzzing harnesses.
