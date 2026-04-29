@@ -9,7 +9,7 @@ cd code
 mkdir -p src/_stub
 echo "/* stub */" > src/_stub/iperf_config.h
 if [[ $MODE == "asan" ]]; then
-    bear --force-wrapper -- $CC $CFLAGS -Isrc -Isrc/_stub -c src/cjson.c || exit 1
+    bear -- $CC $CFLAGS -Isrc -Isrc/_stub -c src/cjson.c || exit 1
     cp compile_commands.json ../build_$MODE/ 2>/dev/null || true
     ar rcs ../build_$MODE/libcjson.a cjson.o
 else

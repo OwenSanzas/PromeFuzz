@@ -3,7 +3,9 @@
 echo "start compiling $PWD with $MODE"
 rm -rf build_$MODE && mkdir -p build_$MODE
 cd code
-NDPI_FORCE_EMBEDDED_THIRD_PARTY=1 ./autogen.sh --with-only-libndpi
+# autogen.sh only runs autoreconf; we still need to run configure ourselves.
+NDPI_FORCE_EMBEDDED_THIRD_PARTY=1 ./autogen.sh
+./configure --with-only-libndpi --disable-shared --enable-static
 if [[ $MODE == "asan" ]]; then
     bear --force-wrapper -- make -j$JOBS || exit 1
     cp compile_commands.json ../build_$MODE/ 2>/dev/null || true

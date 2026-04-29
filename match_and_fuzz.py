@@ -63,6 +63,8 @@ def run_fuzz(project, fuzzer_name, driver_src, duration=600):
         cwd=PF,
         capture_output=True,
         text=True,
+        encoding="utf-8",
+        errors="replace",
         timeout=duration + 300
     )
 

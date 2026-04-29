@@ -69,5 +69,18 @@ if [ ! -d "$DB/latest/out/fuzz_driver" ] || [ "$(ls $DB/latest/out/fuzz_driver/*
     python PromeFuzz.py -F "$DB/latest/lib.toml" generate 2>&1 | tee /tmp/promefuzz_generate_${PROJECT}.log
 fi
 
+# Step 5b: Inject manual drivers (PromeFuzz's all-cover mode skips a few private-API
+# gold targets; we ship hand-written drivers for those so match_and_fuzz can find
+# the gold target_function and produce LIVE coverage instead of falling back).
+if [ -d "$DB/manual_drivers" ]; then
+    mkdir -p "$DB/latest/out/fuzz_driver"
+    for src in "$DB"/manual_drivers/*.c "$DB"/manual_drivers/*.cpp; do
+        [ -f "$src" ] || continue
+        cp "$src" "$DB/latest/out/fuzz_driver/manual_$(basename "$src")"
+    done
+    n=$(ls "$DB"/manual_drivers/*.c "$DB"/manual_drivers/*.cpp 2>/dev/null | wc -l)
+    [ "$n" -gt 0 ] && echo "--- Injected $n manual drivers for $PROJECT ---"
+fi
+
 echo "--- Generation complete for $PROJECT ---"
 echo "Drivers: $(ls $DB/latest/out/fuzz_driver/*.c $DB/latest/out/fuzz_driver/*.cpp 2>/dev/null | wc -l)"
