@@ -1,0 +1,23 @@
+[libical]
+language = "c"
+compile_commands_path = "database/libical/latest/build_asan/compile_commands.json"
+header_paths = [
+    "database/libical/latest/code/src/libical/ical.h",
+    "database/libical/latest/code/src/libical/icalparser.h",
+    "database/libical/latest/code/src/libical/icalcomponent.h",
+    "database/libical/latest/code/src/libical/icalproperty.h",
+]
+document_paths = ["database/libical/latest/code/src/libical/icalparser.h"]
+document_has_api_usage = false
+output_path = "database/libical/latest/out"
+driver_build_args = [
+    "database/libical/latest/build_asan/lib/libical.a",
+    "-Idatabase/libical/latest/code/src/libical",
+    "-Idatabase/libical/latest/build_asan/src/libical",
+]
+consumer_case_paths = ["database/libical/latest/code/src/test"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

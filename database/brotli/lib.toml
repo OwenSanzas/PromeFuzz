@@ -1,0 +1,24 @@
+[brotli]
+language = "c"
+compile_commands_path = "database/brotli/latest/build_asan/compile_commands.json"
+header_paths = [
+    "database/brotli/latest/code/c/include/brotli/decode.h",
+    "database/brotli/latest/code/c/include/brotli/encode.h",
+    "database/brotli/latest/code/c/include/brotli/types.h",
+    "database/brotli/latest/code/c/include/brotli/port.h",
+    "database/brotli/latest/code/c/include/brotli/shared_dictionary.h",
+]
+document_paths = ["database/brotli/latest/code/c/include/brotli/decode.h"]
+document_has_api_usage = false
+output_path = "database/brotli/latest/out"
+driver_build_args = [
+    "database/brotli/latest/build_asan/libbrotlidec.a",
+    "database/brotli/latest/build_asan/libbrotlicommon.a",
+    "-Idatabase/brotli/latest/code/c/include",
+]
+consumer_case_paths = ["database/brotli/latest/code/c/fuzz"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""
