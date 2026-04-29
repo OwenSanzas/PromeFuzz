@@ -82,7 +82,7 @@ python3 match_and_fuzz.py
 # (coverage_summary.txt, normalized_coverage.json, harness.c, etc.) so reviewers
 # without compatible toolchains still see a reference run side-by-side with their
 # own attempt. We never overwrite a successful live run; we only fill in gaps.
-PRECOMPUTED_DIR="$PROMEFUZZ_DIR/precomputed_outputs"
+PRECOMPUTED_DIR="$PROMEFUZZ_DIR/subset_25/precomputed"
 if [ -d "$PRECOMPUTED_DIR" ]; then
     log "=== FALLBACK: filling missing live results from precomputed_outputs/ ==="
     while IFS= read -r case_id; do
