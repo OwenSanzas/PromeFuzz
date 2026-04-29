@@ -1,0 +1,21 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 443287821
+INFO: Loaded 1 modules   (24 inline 8-bit counters): 24 [0x556a3d411ee8, 0x556a3d411f00), 
+INFO: Loaded 1 PC tables (24 PCs): 24 [0x556a3d411f00,0x556a3d412080), 
+INFO:        0 files found in /home/ze/agf/experiment/promefuzz_600s/hwloc__hwloc_fuzzer/corpus
+INFO: A corpus is not provided, starting from an empty corpus
+#2	INITED cov: 2 ft: 2 corp: 1/1b exec/s: 0 rss: 32Mb
+	NEW_FUNC[1/1]: 0x556a3d3d0930 in LLVMFuzzerTestOneInput_26 /home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz/database/hwloc/latest/out/fuzz_driver/synthesized/26.c:17
+#6	NEW    cov: 5 ft: 6 corp: 2/3b lim: 4 exec/s: 0 rss: 33Mb L: 2/2 MS: 4 ShuffleBytes-CrossOver-ShuffleBytes-CrossOver-
+	NEW_FUNC[1/6]: 0x556a3d3d0cc0 in hwloc__obj_type_is_normal /home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz/database/hwloc/latest/code/include/private/misc.h:441
+	NEW_FUNC[2/6]: 0x556a3d3d0d00 in hwloc__obj_type_is_io /home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz/database/hwloc/latest/code/include/private/misc.h:462
+#219	NEW    cov: 17 ft: 18 corp: 3/9b lim: 6 exec/s: 0 rss: 33Mb L: 6/6 MS: 3 InsertByte-EraseBytes-InsertRepeatedBytes-
+#224	REDUCE cov: 17 ft: 18 corp: 3/8b lim: 6 exec/s: 0 rss: 33Mb L: 5/5 MS: 5 ChangeBinInt-ChangeByte-ShuffleBytes-ShuffleBytes-CrossOver-
+#336	NEW    cov: 22 ft: 23 corp: 4/13b lim: 6 exec/s: 0 rss: 33Mb L: 5/5 MS: 2 ChangeByte-CMP- DE: "\017\000\000\000"-
+#4194304	pulse  cov: 22 ft: 23 corp: 4/13b lim: 4096 exec/s: 2097152 rss: 337Mb
+#8388608	pulse  cov: 22 ft: 23 corp: 4/13b lim: 4096 exec/s: 1677721 rss: 595Mb
+#16777216	pulse  cov: 22 ft: 23 corp: 4/13b lim: 4096 exec/s: 1677721 rss: 597Mb
+#33554432	pulse  cov: 22 ft: 23 corp: 4/13b lim: 4096 exec/s: 1677721 rss: 598Mb
+#67108864	pulse  cov: 22 ft: 23 corp: 4/13b lim: 4096 exec/s: 1560671 rss: 598Mb
+#74169381	DONE   cov: 22 ft: 23 corp: 4/13b==66876== libFuzzer: run interrupted; exiting
+==66876== libFuzzer: run interrupted; exiting
