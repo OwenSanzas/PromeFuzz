@@ -1,0 +1,14 @@
+[pjsip]
+language = "c"
+compile_commands_path = "database/pjsip/latest/build_asan/compile_commands.json"
+header_paths = ["database/pjsip/latest/code/pjlib/include/pj/types.h", "database/pjsip/latest/code/pjlib-util/include/pjlib-util/dns.h", "database/pjsip/latest/code/pjsip/include/pjsip/sip_msg.h"]
+document_paths = ["database/pjsip/latest/code/pjlib/include/pj/types.h", "database/pjsip/latest/code/pjlib-util/include/pjlib-util/dns.h"]
+document_has_api_usage = false
+output_path = "database/pjsip/latest/out"
+driver_build_args = ["database/pjsip/latest/code/pjlib/lib/libpj-x86_64-pc-linux-gnu.a", "database/pjsip/latest/code/pjlib-util/lib/libpjlib-util-x86_64-pc-linux-gnu.a", "database/pjsip/latest/code/pjnath/lib/libpjnath-x86_64-pc-linux-gnu.a", "database/pjsip/latest/code/pjmedia/lib/libpjmedia-x86_64-pc-linux-gnu.a", "database/pjsip/latest/code/pjsip/lib/libpjsip-x86_64-pc-linux-gnu.a", "database/pjsip/latest/code/pjsip/lib/libpjsip-ua-x86_64-pc-linux-gnu.a", "database/pjsip/latest/code/pjsip/lib/libpjsip-simple-x86_64-pc-linux-gnu.a", "database/pjsip/latest/code/third_party/lib/libsrtp-x86_64-pc-linux-gnu.a", "database/pjsip/latest/code/third_party/lib/libresample-x86_64-pc-linux-gnu.a", "-Idatabase/pjsip/latest/code/pjlib/include", "-Idatabase/pjsip/latest/code/pjlib-util/include", "-Idatabase/pjsip/latest/code/pjnath/include", "-Idatabase/pjsip/latest/code/pjmedia/include", "-Idatabase/pjsip/latest/code/pjsip/include", "-lssl", "-lcrypto", "-lpthread", "-lm"]
+consumer_case_paths = ["database/pjsip/latest/code/tests/fuzz"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

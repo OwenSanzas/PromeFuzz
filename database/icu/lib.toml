@@ -1,0 +1,14 @@
+[icu]
+language = "c++"
+compile_commands_path = "database/icu/latest/build_asan/compile_commands.json"
+header_paths = ["database/icu/latest/code/icu4c/source/common/unicode/unistr.h", "database/icu/latest/code/icu4c/source/common/unicode/utypes.h"]
+document_paths = ["database/icu/latest/code/icu4c/source/common/unicode/unistr.h"]
+document_has_api_usage = false
+output_path = "database/icu/latest/out"
+driver_build_args = ["database/icu/latest/code/icu4c/source/lib/libicui18n.a", "database/icu/latest/code/icu4c/source/lib/libicuuc.a", "database/icu/latest/code/icu4c/source/lib/libicudata.a", "-Idatabase/icu/latest/code/icu4c/source/common", "-Idatabase/icu/latest/code/icu4c/source/i18n", "-std=c++17", "-lpthread", "-ldl", "-lm"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

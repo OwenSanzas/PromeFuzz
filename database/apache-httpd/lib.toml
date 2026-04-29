@@ -1,0 +1,14 @@
+[apache_httpd]
+language = "c"
+compile_commands_path = "database/apache-httpd/latest/build_asan/compile_commands.json"
+header_paths = ["/usr/include/apr-1.0/apr_uri.h", "/usr/include/apr-1.0/apr_network_io.h", "/usr/include/apr-1.0/apr_strings.h"]
+document_paths = ["/usr/include/apr-1.0/apr_network_io.h", "/usr/include/apr-1.0/apr_strings.h"]
+document_has_api_usage = false
+output_path = "database/apache-httpd/latest/out"
+driver_build_args = ["-lapr-1", "-I/usr/include/apr-1.0"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

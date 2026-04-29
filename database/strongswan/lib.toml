@@ -1,0 +1,14 @@
+[strongswan]
+language = "c"
+compile_commands_path = "database/strongswan/latest/build_asan/compile_commands.json"
+header_paths = ["database/strongswan/latest/code/src/libstrongswan/library.h", "database/strongswan/latest/code/src/libstrongswan/credentials/certificates/crl.h"]
+document_paths = ["database/strongswan/latest/code/src/libstrongswan/library.h"]
+document_has_api_usage = false
+output_path = "database/strongswan/latest/out"
+driver_build_args = ["database/strongswan/latest/code/src/libstrongswan/.libs/libstrongswan.a", "-Idatabase/strongswan/latest/code/src/libstrongswan", "-Idatabase/strongswan/latest/code/src", "-lssl", "-lcrypto", "-lpthread", "-ldl"]
+consumer_case_paths = ["database/strongswan/latest/code/fuzz"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

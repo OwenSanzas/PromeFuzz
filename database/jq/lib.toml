@@ -1,0 +1,14 @@
+[jq]
+language = "c"
+compile_commands_path = "database/jq/latest/build_asan/compile_commands.json"
+header_paths = ["database/jq/latest/code/src/jq.h", "database/jq/latest/code/src/jv.h"]
+document_paths = ["database/jq/latest/code/src/jq.h", "database/jq/latest/code/src/jv.h"]
+document_has_api_usage = false
+output_path = "database/jq/latest/out"
+driver_build_args = ["database/jq/latest/code/.libs/libjq.a", "database/jq/latest/code/vendor/oniguruma/src/.libs/libonig.a", "-Idatabase/jq/latest/code/src"]
+consumer_case_paths = ["database/jq/latest/code/tests"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

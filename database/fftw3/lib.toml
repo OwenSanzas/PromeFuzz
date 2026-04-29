@@ -1,0 +1,14 @@
+[fftw3]
+language = "c"
+compile_commands_path = "database/fftw3/latest/build_asan/compile_commands.json"
+header_paths = ["database/fftw3/latest/code/api/fftw3.h"]
+document_paths = ["database/fftw3/latest/code/api/fftw3.h"]
+document_has_api_usage = false
+output_path = "database/fftw3/latest/out"
+driver_build_args = ["database/fftw3/latest/build_asan/libfftw3.a", "-Idatabase/fftw3/latest/code/api", "-Idatabase/fftw3/latest/code", "-lpthread", "-lm"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

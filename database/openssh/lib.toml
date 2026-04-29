@@ -1,0 +1,14 @@
+[openssh]
+language = "c"
+compile_commands_path = "database/openssh/latest/build_asan/compile_commands.json"
+header_paths = ["database/openssh/latest/code/sshkey.h", "database/openssh/latest/code/sshbuf.h"]
+document_paths = ["database/openssh/latest/code/sshkey.h"]
+document_has_api_usage = false
+output_path = "database/openssh/latest/out"
+driver_build_args = ["database/openssh/latest/code/libssh.a", "-Idatabase/openssh/latest/code", "-lssl", "-lcrypto", "-lz", "-lpthread", "-ldl", "-lresolv"]
+consumer_case_paths = ["database/openssh/latest/code/regress"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

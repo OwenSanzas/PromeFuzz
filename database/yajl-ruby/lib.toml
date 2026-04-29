@@ -1,0 +1,14 @@
+[yajl_ruby]
+language = "c"
+compile_commands_path = "database/yajl-ruby/latest/build_asan/compile_commands.json"
+header_paths = ["database/yajl-ruby/latest/code/ext/yajl/api/yajl_parse.h", "database/yajl-ruby/latest/code/ext/yajl/api/yajl_gen.h"]
+document_paths = ["database/yajl-ruby/latest/code/ext/yajl/api/yajl_parse.h"]
+document_has_api_usage = false
+output_path = "database/yajl-ruby/latest/out"
+driver_build_args = ["database/yajl-ruby/latest/build_asan/libyajl.a", "-Idatabase/yajl-ruby/latest/code/ext/yajl", "-Idatabase/yajl-ruby/latest/code/ext/yajl/api"]
+consumer_case_paths = ["database/yajl-ruby/latest/code/fuzz"]
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""

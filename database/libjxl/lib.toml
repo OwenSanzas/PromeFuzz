@@ -1,0 +1,14 @@
+[libjxl]
+language = "c++"
+compile_commands_path = "database/libjxl/latest/build_asan/compile_commands.json"
+header_paths = ["database/libjxl/latest/code/lib/include/jxl/decode.h", "database/libjxl/latest/code/lib/include/jxl/encode.h", "database/libjxl/latest/code/lib/jxl/color_encoding_internal.h", "database/libjxl/latest/code/lib/jxl/icc_codec.h", "database/libjxl/latest/code/lib/jxl/fields.h"]
+document_paths = ["database/libjxl/latest/code/lib/include/jxl/decode.h", "database/libjxl/latest/code/lib/include/jxl/encode.h"]
+document_has_api_usage = false
+output_path = "database/libjxl/latest/out"
+driver_build_args = ["database/libjxl/latest/build_asan/lib/libjxl_dec-internal.a", "database/libjxl/latest/build_asan/lib/libjxl_dec.a", "database/libjxl/latest/build_asan/lib/libjxl_cms.a", "database/libjxl/latest/build_asan/third_party/brotli/libbrotlicommon.a", "database/libjxl/latest/build_asan/third_party/brotli/libbrotlidec.a", "database/libjxl/latest/build_asan/third_party/brotli/libbrotlienc.a", "database/libjxl/latest/build_asan/third_party/highway/libhwy.a", "-Idatabase/libjxl/latest/code/lib/include", "-Idatabase/libjxl/latest/build_asan/lib/include", "-Idatabase/libjxl/latest/code/lib", "-std=c++17", "-lpthread", "-lm"]
+consumer_case_paths = []
+consumer_build_args = []
+source_paths = []
+exclude_paths = []
+driver_headers = []
+api_hints_path = ""
