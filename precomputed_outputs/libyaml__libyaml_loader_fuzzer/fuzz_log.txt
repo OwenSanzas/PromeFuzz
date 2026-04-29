@@ -1,0 +1,17 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 2422895260
+INFO: Loaded 1 modules   (3314 inline 8-bit counters): 3314 [0x5565de4bf400, 0x5565de4c00f2), 
+INFO: Loaded 1 PC tables (3314 PCs): 3314 [0x5565de4c00f8,0x5565de4cd018), 
+INFO:        1 files found in /home/ze/agf/experiment/promefuzz_600s/libyaml__libyaml_loader_fuzzer/corpus
+INFO: seed corpus: files: 1 min: 4b max: 4b total: 4b rss: 32Mb
+#2	INITED cov: 220 ft: 221 corp: 1/4b exec/s: 0 rss: 33Mb
+#5	NEW    cov: 222 ft: 248 corp: 2/6b lim: 4 exec/s: 0 rss: 34Mb L: 2/4 MS: 3 ChangeBit-CrossOver-EraseBytes-
+#6	NEW    cov: 228 ft: 265 corp: 3/8b lim: 4 exec/s: 0 rss: 34Mb L: 2/4 MS: 1 ChangeBinInt-
+#13	NEW    cov: 228 ft: 271 corp: 4/12b lim: 4 exec/s: 0 rss: 34Mb L: 4/4 MS: 2 ChangeBit-CrossOver-
+	NEW_FUNC[1/1]: 0x5565de473470 in yaml_parser_set_reader_error /home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz/database/libyaml/latest/code/src/reader.c:28
+#15	NEW    cov: 245 ft: 322 corp: 5/15b lim: 4 exec/s: 0 rss: 35Mb L: 3/4 MS: 2 EraseBytes-CrossOver-
+#16	NEW    cov: 252 ft: 349 corp: 6/18b lim: 4 exec/s: 0 rss: 35Mb L: 3/4 MS: 1 InsertByte-
+#18	NEW    cov: 252 ft: 350 corp: 7/19b lim: 4 exec/s: 0 rss: 35Mb L: 1/4 MS: 2 ChangeBit-EraseBytes-
+#19	NEW    cov: 254 ft: 352 corp: 8/23b lim: 4 exec/s: 0 rss: 35Mb L: 4/4 MS: 1 ChangeByte-
+#21	NEW    cov: 256 ft: 354 corp: 9/27b lim: 4 exec/s: 0 rss: 35Mb L: 4/4 MS: 2 ChangeBit-CMP- DE: "\001\003"-
+#22	NEW    cov: 258 ft: 356 corp: 10/31b lim: 4 exec/s: 0 rss: 35Mb L: 4/4 MS: 1 ChangeByte-

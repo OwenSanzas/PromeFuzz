@@ -1,0 +1,42 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 1355015465
+INFO: Loaded 1 modules   (35 inline 8-bit counters): 35 [0x55fc6ca2f6f8, 0x55fc6ca2f71b), 
+INFO: Loaded 1 PC tables (35 PCs): 35 [0x55fc6ca2f720,0x55fc6ca2f950), 
+INFO:        1 files found in /home/ze/agf/experiment/promefuzz_600s/libxslt__xpath/corpus
+INFO: seed corpus: files: 1 min: 4b max: 4b total: 4b rss: 31Mb
+#2	INITED cov: 17 ft: 17 corp: 1/4b exec/s: 0 rss: 32Mb
+#7	REDUCE cov: 17 ft: 17 corp: 1/2b lim: 4 exec/s: 0 rss: 33Mb L: 2/2 MS: 5 ChangeBit-ChangeByte-ChangeBinInt-ShuffleBytes-EraseBytes-
+#13	REDUCE cov: 17 ft: 17 corp: 1/1b lim: 4 exec/s: 0 rss: 33Mb L: 1/1 MS: 1 EraseBytes-
+#262144	pulse  cov: 17 ft: 17 corp: 1/1b lim: 2600 exec/s: 87381 rss: 451Mb
+#524288	pulse  cov: 17 ft: 17 corp: 1/1b lim: 5212 exec/s: 74898 rss: 482Mb
+#1048576	pulse  cov: 17 ft: 17 corp: 1/1b lim: 10436 exec/s: 65536 rss: 545Mb
+#2097152	pulse  cov: 17 ft: 17 corp: 1/1b lim: 20884 exec/s: 67650 rss: 672Mb
+#4194304	pulse  cov: 17 ft: 17 corp: 1/1b lim: 41785 exec/s: 64527 rss: 924Mb
+#8388608	pulse  cov: 17 ft: 17 corp: 1/1b lim: 65536 exec/s: 59493 rss: 1428Mb
+==118731== ERROR: libFuzzer: out-of-memory (used: 2049Mb; limit: 2048Mb)
+   To change the out-of-memory limit use -rss_limit_mb=<N>
+
+Live Heap Allocations: 1110418561 bytes in 13575790 chunks; quarantined: 246541029 bytes in 646551 chunks; 50496 other chunks; total chunks: 14272837; showing top 95% (at most 8 unique contexts)
+1086057040 byte(s) (97%) in 13575713 allocation(s)
+    #0 0x55fc6c80d1a6 in __interceptor_realloc (/home/ze/agf/experiment/promefuzz_600s/libxslt__xpath/fuzzer+0xec1a6) (BuildId: b106c63daa8268f28a9c18b84983f662011e641a)
+    #1 0x55fc6c84af36 in xsltLocalVariablePush (/home/ze/agf/experiment/promefuzz_600s/libxslt__xpath/fuzzer+0x129f36) (BuildId: b106c63daa8268f28a9c18b84983f662011e641a)
+    #2 0x55fc6c847e4c in LLVMFuzzerTestOneInput /home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz/database/libxslt/latest/out/fuzz_driver/fuzz_driver_29.c:83:9
+    #3 0x55fc6c770473 in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) (/home/ze/agf/experiment/promefuzz_600s/libxslt__xpath/fuzzer+0x4f473) (BuildId: b106c63daa8268f28a9c18b84983f662011e641a)
+    #4 0x55fc6c76fb99 in fuzzer::Fuzzer::RunOne(unsigned char const*, unsigned long, bool, fuzzer::InputInfo*, bool, bool*) (/home/ze/agf/experiment/promefuzz_600s/libxslt__xpath/fuzzer+0x4eb99) (BuildId: b106c63daa8268f28a9c18b84983f662011e641a)
+    #5 0x55fc6c7712f9 in fuzzer::Fuzzer::MutateAndTestOne() (/home/ze/agf/experiment/promefuzz_600s/libxslt__xpath/fuzzer+0x502f9) (BuildId: b106c63daa8268f28a9c18b84983f662011e641a)
+    #6 0x55fc6c771e75 in fuzzer::Fuzzer::Loop(std::vector<fuzzer::SizedFile, std::allocator<fuzzer::SizedFile> >&) (/home/ze/agf/experiment/promefuzz_600s/libxslt__xpath/fuzzer+0x50e75) (BuildId: b106c63daa8268f28a9c18b84983f662011e641a)
+    #7 0x55fc6c7602e2 in __covrec_FD692630B7691E2Du (/home/ze/agf/experiment/promefuzz_600s/libxslt__xpath/fuzzer+0x3f2e2) (BuildId: b106c63daa8268f28a9c18b84983f662011e641a)
+    #8 0x55fc6c789ff2 in main (/home/ze/agf/experiment/promefuzz_600s/libxslt__xpath/fuzzer+0x68ff2) (BuildId: b106c63daa8268f28a9c18b84983f662011e641a)
+    #9 0x7f2472c45249  (/lib/x86_64-linux-gnu/libc.so.6+0x27249) (BuildId: 6196744a316dbd57c0fd8968df1680aac482cec4)
+
+MS: 3 CopyPart-ShuffleBytes-InsertRepeatedBytes-; base unit: b54664965911c6fe91e18cd01b68a75c8183b530
+0xfd,0xa2,0xa2,0xa2,0xa2,0xa2,0xfd,
+\375\242\242\242\242\242\375
+artifact_prefix='./'; Test unit written to ./oom-cd2e3f5e1f0978f5472ed613bdb94587effeed4b
+Base64: /aKioqKi/Q==
+SUMMARY: libFuzzer: out-of-memory
+stat::number_of_executed_units: 13575717
+stat::average_exec_per_sec:     54302
+stat::new_units_added:          2
+stat::slowest_unit_time_sec:    0
+stat::peak_rss_mb:              2049

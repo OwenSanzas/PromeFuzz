@@ -1,0 +1,7 @@
+/home/ze/agf/experiment/promefuzz_600s/quickjs__fuzz_compile/harness.c:59:38: warning: incompatible function pointer types passing 'void (JSContext *, const char *, void *)' (aka 'void (struct JSContext *, const char *, void *)') to parameter of type 'JSModuleLoaderFunc *' (aka 'struct JSModuleDef *(*)(struct JSContext *, const char *, void *)') [-Wincompatible-function-pointer-types]
+    JS_SetModuleLoaderFunc(rt, NULL, dummy_module_loader, NULL);
+                                     ^~~~~~~~~~~~~~~~~~~
+/home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz/database/quickjs/latest/code/quickjs.h:949:49: note: passing argument to parameter 'module_loader' here
+                            JSModuleLoaderFunc *module_loader, void *opaque);
+                                                ^
+1 warning generated.

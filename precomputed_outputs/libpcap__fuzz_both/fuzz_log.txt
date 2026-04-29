@@ -1,0 +1,7 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 2826085578
+INFO: Loaded 1 modules   (5372 inline 8-bit counters): 5372 [0x55b857dc9cb0, 0x55b857dcb1ac), 
+INFO: Loaded 1 PC tables (5372 PCs): 5372 [0x55b857dcb1b0,0x55b857de0170), 
+INFO:        1 files found in /home/ze/agf/experiment/promefuzz_600s/libpcap__fuzz_both/corpus
+INFO: seed corpus: files: 1 min: 4b max: 4b total: 4b rss: 31Mb
+#2	INITED cov: 19 ft: 20 corp: 1/4b exec/s: 0 rss: 32Mb

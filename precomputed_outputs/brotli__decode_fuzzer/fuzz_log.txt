@@ -1,0 +1,20 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 2468179555
+INFO: Loaded 1 modules   (14390 inline 8-bit counters): 14390 [0x5623513d75b0, 0x5623513dade6), 
+INFO: Loaded 1 PC tables (14390 PCs): 14390 [0x5623513dade8,0x562351413148), 
+INFO:        1 files found in /home/ze/agf/experiment/promefuzz_600s/brotli__decode_fuzzer/corpus
+INFO: seed corpus: files: 1 min: 4b max: 4b total: 4b rss: 33Mb
+#2	INITED cov: 706 ft: 707 corp: 1/4b exec/s: 0 rss: 36Mb
+#3	NEW    cov: 710 ft: 743 corp: 2/6b lim: 4 exec/s: 0 rss: 37Mb L: 2/4 MS: 1 EraseBytes-
+	NEW_FUNC[1/6]: 0x562351249530 in StoreSimpleHuffmanTree /home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz/database/brotli/latest/code/c/enc/brotli_bit_stream.c:246
+	NEW_FUNC[2/6]: 0x5623512d3800 in BrotliSetDepth /home/ze/agf/benchmark/oss_fuzz_harness/baselines/PromeFuzz/database/brotli/latest/code/c/enc/entropy_encode.c:21
+#4	NEW    cov: 749 ft: 809 corp: 3/9b lim: 4 exec/s: 0 rss: 38Mb L: 3/4 MS: 1 InsertByte-
+#5	NEW    cov: 766 ft: 833 corp: 4/12b lim: 4 exec/s: 0 rss: 39Mb L: 3/4 MS: 1 InsertByte-
+#6	NEW    cov: 768 ft: 854 corp: 5/13b lim: 4 exec/s: 0 rss: 40Mb L: 1/4 MS: 1 CrossOver-
+#7	NEW    cov: 769 ft: 855 corp: 6/16b lim: 4 exec/s: 0 rss: 41Mb L: 3/4 MS: 1 ShuffleBytes-
+#8	NEW    cov: 783 ft: 908 corp: 7/20b lim: 4 exec/s: 0 rss: 42Mb L: 4/4 MS: 1 InsertByte-
+#9	NEW    cov: 786 ft: 916 corp: 8/24b lim: 4 exec/s: 0 rss: 43Mb L: 4/4 MS: 1 CrossOver-
+#10	NEW    cov: 787 ft: 925 corp: 9/28b lim: 4 exec/s: 0 rss: 44Mb L: 4/4 MS: 1 ChangeBit-
+#11	NEW    cov: 788 ft: 929 corp: 10/32b lim: 4 exec/s: 0 rss: 45Mb L: 4/4 MS: 1 ChangeBinInt-
+#12	NEW    cov: 788 ft: 930 corp: 11/36b lim: 4 exec/s: 0 rss: 46Mb L: 4/4 MS: 1 InsertByte-
+#13	NEW    cov: 797 ft: 954 corp: 12/40b lim: 4 exec/s: 0 rss: 47Mb L: 4/4 MS: 1 ChangeBit-

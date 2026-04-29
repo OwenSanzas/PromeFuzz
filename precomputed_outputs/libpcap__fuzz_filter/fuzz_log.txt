@@ -1,0 +1,12 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 831177302
+INFO: Loaded 1 modules   (5372 inline 8-bit counters): 5372 [0x565041addcb0, 0x565041adf1ac), 
+INFO: Loaded 1 PC tables (5372 PCs): 5372 [0x565041adf1b0,0x565041af4170), 
+INFO:        1 files found in /home/ze/agf/experiment/promefuzz_600s/libpcap__fuzz_filter/corpus
+INFO: seed corpus: files: 1 min: 4b max: 4b total: 4b rss: 33Mb
+#2	INITED cov: 19 ft: 20 corp: 1/4b exec/s: 0 rss: 34Mb
+#3	NEW    cov: 19 ft: 21 corp: 2/8b lim: 4 exec/s: 0 rss: 34Mb L: 4/4 MS: 1 ChangeBinInt-
+#8	NEW    cov: 20 ft: 23 corp: 3/11b lim: 4 exec/s: 0 rss: 34Mb L: 3/4 MS: 5 CMP-ChangeByte-ShuffleBytes-CopyPart-EraseBytes- DE: "\377\377"-
+#30	REDUCE cov: 20 ft: 23 corp: 3/10b lim: 4 exec/s: 0 rss: 35Mb L: 2/4 MS: 2 ShuffleBytes-EraseBytes-
+#41	REDUCE cov: 20 ft: 23 corp: 3/9b lim: 4 exec/s: 0 rss: 35Mb L: 1/4 MS: 1 EraseBytes-
+#330	NEW    cov: 23 ft: 26 corp: 4/13b lim: 6 exec/s: 0 rss: 40Mb L: 4/4 MS: 4 ChangeBit-ChangeBit-ChangeByte-CMP- DE: "M<\262\241"-

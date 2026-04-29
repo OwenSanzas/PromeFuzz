@@ -1,0 +1,9 @@
+{
+  "gold_lines_pct": 4.61,
+  "gold_lines_covered": 2915,
+  "gold_lines_total": 63222,
+  "pf_lines_pct": 4.46,
+  "pf_lines_covered": 2815,
+  "pf_lines_total": 63178,
+  "same_library": true
+}

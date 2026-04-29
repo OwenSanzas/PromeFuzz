@@ -1,0 +1,26 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 1980818948
+INFO: Loaded 1 modules   (21 inline 8-bit counters): 21 [0x563f5aff2738, 0x563f5aff274d), 
+INFO: Loaded 1 PC tables (21 PCs): 21 [0x563f5aff2750,0x563f5aff28a0), 
+INFO:        1 files found in /home/ze/agf/experiment/promefuzz_600s/libxslt__xslt/corpus
+INFO: seed corpus: files: 1 min: 4b max: 4b total: 4b rss: 34Mb
+#2	INITED cov: 9 ft: 9 corp: 1/4b exec/s: 0 rss: 35Mb
+#10	REDUCE cov: 9 ft: 9 corp: 1/3b lim: 4 exec/s: 0 rss: 37Mb L: 3/3 MS: 3 CrossOver-CopyPart-EraseBytes-
+#11	REDUCE cov: 9 ft: 9 corp: 1/2b lim: 4 exec/s: 0 rss: 37Mb L: 2/2 MS: 1 EraseBytes-
+#17	REDUCE cov: 9 ft: 9 corp: 1/1b lim: 4 exec/s: 0 rss: 38Mb L: 1/1 MS: 1 EraseBytes-
+#8192	pulse  cov: 9 ft: 9 corp: 1/1b lim: 80 exec/s: 2730 rss: 160Mb
+#16384	pulse  cov: 9 ft: 9 corp: 1/1b lim: 163 exec/s: 2730 rss: 160Mb
+#32768	pulse  cov: 9 ft: 9 corp: 1/1b lim: 325 exec/s: 2730 rss: 160Mb
+#65536	pulse  cov: 9 ft: 9 corp: 1/1b lim: 652 exec/s: 2621 rss: 160Mb
+#131072	pulse  cov: 9 ft: 9 corp: 1/1b lim: 1300 exec/s: 3855 rss: 160Mb
+#262144	pulse  cov: 9 ft: 9 corp: 1/1b lim: 2600 exec/s: 4681 rss: 160Mb
+#524288	pulse  cov: 9 ft: 9 corp: 1/1b lim: 5212 exec/s: 4899 rss: 160Mb
+#1048576	pulse  cov: 9 ft: 9 corp: 1/1b lim: 10436 exec/s: 5269 rss: 160Mb
+#2097152	pulse  cov: 9 ft: 9 corp: 1/1b lim: 20884 exec/s: 3934 rss: 160Mb
+#2268377	DONE   cov: 9 ft: 9 corp: 1/1b lim: 22592 exec/s: 3774 rss: 160Mb
+Done 2268377 runs in 601 second(s)
+stat::number_of_executed_units: 2268377
+stat::average_exec_per_sec:     3774
+stat::new_units_added:          3
+stat::slowest_unit_time_sec:    0
+stat::peak_rss_mb:              160

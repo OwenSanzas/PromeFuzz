@@ -1,0 +1,29 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 1376432226
+INFO: Loaded 1 modules   (664 inline 8-bit counters): 664 [0x5650b1213450, 0x5650b12136e8), 
+INFO: Loaded 1 PC tables (664 PCs): 664 [0x5650b12136e8,0x5650b1216068), 
+INFO:        1 files found in /home/ze/agf/experiment/promefuzz_600s/yajl-ruby__json_fuzzer/corpus
+INFO: seed corpus: files: 1 min: 4b max: 4b total: 4b rss: 34Mb
+#2	INITED cov: 4 ft: 5 corp: 1/4b exec/s: 0 rss: 35Mb
+#3	NEW    cov: 4 ft: 6 corp: 2/8b lim: 4 exec/s: 0 rss: 35Mb L: 4/4 MS: 1 CopyPart-
+#28	REDUCE cov: 4 ft: 6 corp: 2/6b lim: 4 exec/s: 0 rss: 35Mb L: 2/4 MS: 5 ChangeBinInt-ChangeByte-ShuffleBytes-CopyPart-EraseBytes-
+#85	REDUCE cov: 4 ft: 6 corp: 2/5b lim: 4 exec/s: 0 rss: 35Mb L: 1/4 MS: 2 ChangeBit-EraseBytes-
+#4194304	pulse  cov: 4 ft: 6 corp: 2/5b lim: 41785 exec/s: 2097152 rss: 348Mb
+#8388608	pulse  cov: 4 ft: 6 corp: 2/5b lim: 65536 exec/s: 1677721 rss: 604Mb
+#16777216	pulse  cov: 4 ft: 6 corp: 2/5b lim: 65536 exec/s: 1398101 rss: 606Mb
+#33554432	pulse  cov: 4 ft: 6 corp: 2/5b lim: 65536 exec/s: 1597830 rss: 606Mb
+#67108864	pulse  cov: 4 ft: 6 corp: 2/5b lim: 65536 exec/s: 1636801 rss: 606Mb
+#134217728	pulse  cov: 4 ft: 6 corp: 2/5b lim: 65536 exec/s: 1597830 rss: 606Mb
+#268435456	pulse  cov: 4 ft: 6 corp: 2/5b lim: 65536 exec/s: 1458888 rss: 606Mb
+#449382225	DONE  ==624777== libFuzzer: run interrupted; exiting
+==624777== libFuzzer: run interrupted; exiting
+stat::number_of_executed_units: 449382225
+stat::number_of_executed_units: 449382225
+stat::average_exec_per_sec:     670719
+stat::average_exec_per_sec:     670719
+stat::new_units_added:          3
+stat::new_units_added:          3
+stat::slowest_unit_time_sec:    0
+stat::slowest_unit_time_sec:    0
+stat::peak_rss_mb:              606
+stat::peak_rss_mb:              606

@@ -1,0 +1,5 @@
+/home/ze/agf/experiment/promefuzz_600s/fftw3__fftw3_fuzzer/harness.c:35:5: warning: implicitly declaring library function 'memcpy' with type 'void *(void *, const void *, unsigned long)' [-Wimplicit-function-declaration]
+    memcpy(in, Data, sizeof(fftw_complex));
+    ^
+/home/ze/agf/experiment/promefuzz_600s/fftw3__fftw3_fuzzer/harness.c:35:5: note: include the header <string.h> or explicitly provide a declaration for 'memcpy'
+1 warning generated.

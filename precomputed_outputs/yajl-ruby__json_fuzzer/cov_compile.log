@@ -1,0 +1,13 @@
+/home/ze/agf/experiment/promefuzz_600s/yajl-ruby__json_fuzzer/harness.c:34:9: warning: incompatible function pointer types initializing 'int (*)(void *, long)' with an expression of type 'int (void *, long long)' [-Wincompatible-function-pointer-types]
+        yajl_integer,
+        ^~~~~~~~~~~~
+/home/ze/agf/experiment/promefuzz_600s/yajl-ruby__json_fuzzer/harness.c:36:9: warning: incompatible function pointer types initializing 'int (*)(void *, const char *, unsigned int)' with an expression of type 'int (void *, const char *, size_t)' (aka 'int (void *, const char *, unsigned long)') [-Wincompatible-function-pointer-types]
+        yajl_number,
+        ^~~~~~~~~~~
+/home/ze/agf/experiment/promefuzz_600s/yajl-ruby__json_fuzzer/harness.c:37:9: warning: incompatible function pointer types initializing 'int (*)(void *, const unsigned char *, unsigned int)' with an expression of type 'int (void *, const unsigned char *, size_t)' (aka 'int (void *, const unsigned char *, unsigned long)') [-Wincompatible-function-pointer-types]
+        yajl_string,
+        ^~~~~~~~~~~
+/home/ze/agf/experiment/promefuzz_600s/yajl-ruby__json_fuzzer/harness.c:39:9: warning: incompatible function pointer types initializing 'int (*)(void *, const unsigned char *, unsigned int)' with an expression of type 'int (void *, const unsigned char *, size_t)' (aka 'int (void *, const unsigned char *, unsigned long)') [-Wincompatible-function-pointer-types]
+        yajl_map_key,
+        ^~~~~~~~~~~~
+4 warnings generated.
